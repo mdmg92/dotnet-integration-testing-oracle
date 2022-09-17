@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  test-oracle:
+    image: gvenzl/oracle-xe:18-slim
+    restart: always
+    environment:
+      - ORACLE_PASSWORD=changeme
+      - ORACLE_DATABASE=MY_DB
+      - APP_USER=MY_USER
+      - APP_USER_PASSWORD=changeme
+    healthcheck:
+      test: [ "CMD-SHELL", "healthcheck.sh" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    ports:
+      - '1521:1521'
